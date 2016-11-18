@@ -19,7 +19,7 @@
 					<div class="panel">
 						<div class="panel-body">
 							<div class="row">
-								<form class="steps-basic overflow-visible" name="afiliacion" action="#">
+								<form class="steps-basic overflow-visible">
 									<h6>Datos del Cliente</h6>
 									<fieldset>
 										<div class="col-md-10 col-md-offset-1">

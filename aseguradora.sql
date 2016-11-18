@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2016 a las 18:18:00
+-- Tiempo de generación: 18-11-2016 a las 23:59:30
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -29,9 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `afiliciacion` (
   `id` int(11) NOT NULL,
   `placa` varchar(6) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
-  `partes` int(11) NOT NULL,
-  `foto_vehiculo` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+  `fecha` varchar(8) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -45,6 +43,18 @@ CREATE TABLE `arreglo` (
   `fecha` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
   `valor` bigint(20) NOT NULL,
   `fo` varchar(50) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imagenes`
+--
+
+CREATE TABLE `imagenes` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `id_siniestro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -91,9 +101,7 @@ CREATE TABLE `pagos` (
 
 CREATE TABLE `partes` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `estado` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` text COLLATE utf8_spanish_ci NOT NULL
+  `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -161,14 +169,20 @@ CREATE TABLE `vehiculo` (
 --
 ALTER TABLE `afiliciacion`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `placa` (`placa`),
-  ADD KEY `partes` (`partes`);
+  ADD KEY `placa` (`placa`);
 
 --
 -- Indices de la tabla `arreglo`
 --
 ALTER TABLE `arreglo`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `imagenes`
+--
+ALTER TABLE `imagenes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siniestro` (`id_siniestro`);
 
 --
 -- Indices de la tabla `involucrados`
@@ -235,6 +249,11 @@ ALTER TABLE `afiliciacion`
 -- AUTO_INCREMENT de la tabla `arreglo`
 --
 ALTER TABLE `arreglo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `imagenes`
+--
+ALTER TABLE `imagenes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `marcas`
