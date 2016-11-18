@@ -36,7 +36,6 @@
 							<li><a href="#">Pagos</a></li>
 						</ul>
 					</li>
-					<li><a href="#"><i class="icon-user-tie"></i> <span>Consultas</span></a></li>
 					<!-- /main -->
 				</ul>
 			</div>

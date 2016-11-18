@@ -19,14 +19,14 @@
 					<div class="panel">
 						<div class="panel-body">
 							<div class="row">
-								<form class="steps-basic overflow-visible" name="afiliacion" action="#">
+								<form class="steps-validation steps-basic overflow-visible" action="#">
 									<h6>Datos de la Reparación</h6>
 									<fieldset>
 										<div class="col-md-10 col-md-offset-1">
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-profile"></i></span>
-													<input type="text" id="placa" class="form-control" placeholder="Placa del Vehiculo *">
+													<input type="text" id="placa" class="form-control" required="required" placeholder="Placa del Vehiculo *">
 												</div>
 											</div>
 											<div class="form-group">
@@ -93,6 +93,10 @@
 	<?php include 'views/include/scripts.php'; ?>
 	<script src="Public/assets/js/plugins/steps.min.js"></script>
 	<script src="Public/assets/js/plugins/dropzone.min.js"></script>
+	<script src="Public/assets/js/plugins/validate.min.js"></script>
+	<script>
+		
+	</script>
 	<script>
 		$(".steps-basic").steps({
 		    headerTag: "h6",
@@ -103,6 +107,22 @@
 		        finish: 'Enviar',
 		        previous : 'Anterior',
 		    	next : 'Siguiente'
+		    },
+		    onStepChanging: function(event, currentIndex, newIndex){
+
+		    	$(".steps-validation").validate({
+		    		submitHandler: function(form) {
+					    // do other things for a valid form
+					    form.submit();
+					},
+					rules: {
+						placa: "required"
+					},
+					messages: {
+						placa: "Por favor ingrese la placa del vehiculo"
+					}
+				});
+				//return true;
 		    },
 		    onFinished: function (event, currentIndex) {
 		        alert("Formulario enviado.");
@@ -147,6 +167,7 @@
 			});
 		});	 
 	</script>
+
 	<!-- /scripts -->
 </body>
 </html>
