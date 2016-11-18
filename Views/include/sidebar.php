@@ -22,7 +22,7 @@
 						<ul>
 							<li><a href="?url=afiliaciones">Afiliación</a></li>
 							<li><a href="?url=siniestro">Siniestro</a></li>
-							<li><a href="#">Arreglo</a></li>
+							<li><a href="?url=reparaciones">Arreglo</a></li>
 							<li><a href="#">Perito</a></li>
 						</ul>
 					</li>

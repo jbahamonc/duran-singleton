@@ -6,6 +6,7 @@
 	include 'controller/afiliaciones.php';
 	include 'controller/upload.php';
 	include 'controller/siniestro.php';
+	include 'controller/reparaciones.php';
 	include 'Core/views.php';
 
 	/**

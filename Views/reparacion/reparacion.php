@@ -20,7 +20,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<form class="steps-basic overflow-visible" name="afiliacion" action="#">
-									<h6>Datos del Siniestro</h6>
+									<h6>Datos de la Reparación</h6>
 									<fieldset>
 										<div class="col-md-10 col-md-offset-1">
 											<div class="form-group">
@@ -32,42 +32,9 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-user-tie"></i></span>
-													<input type="text" class="form-control" placeholder="Nombre del Conductor *">
+													<input type="text" class="form-control" placeholder="Valor total *">
 												</div>
 											</div>
-											<div class="form-group">
-												<div class="input-group">
-													<span class="input-group-addon"><i class="icon-phone"></i></span>
-													<input type="text" class="form-control" placeholder="Ubicacion del Siniestro *">
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="input-group">
-													<span class="input-group-addon"><i class="icon-profile"></i></span>
-													<select class="bootstrap-select bs-select-hidden" multiple="multiple" title="Seleccione uno o varios Peritos" data-width="100%">
-														<option value="select">Select Hawaii, California and Nevada</option>
-														<option value="HI" title="Fun">Hawaii</option>
-														<option value="CA" title="Hollywood">California</option>
-														<option value="NV" title="Casino">Nevada</option>
-														<option value="OR">Oregon</option>
-													</select>
-												</div>
-											</div>
-										</div>
-									</fieldset>
-									<h6>Datos de los involucrados</h6>
-									<fieldset>
-										<div class="col-md-10 col-md-offset-1">
-											<div class="text-center addInvCont">
-												<button type="button"  data-popup="popover" data-html="true" data-content="<div class='input-group'><span class='input-group-addon'><i class='icon-profile'></i></span><input id='idInv' type='text' class='form-control' placeholder='Identificación'></div><div class='input-group'><span class='input-group-addon'><i class='icon-profile'></i></span><input id='nomInv' type='text' class='form-control' placeholder='Nombre'></div><div class='text-center mt-10'><button type='button' id='addInv' class='label label-striped btn-raised'>AGREGAR</button></div>" data-original-title="Datos del involucrado" data-placement="top" class="btn btn-raised mdc-bg-yellow-600 mdc-text-white-darker btn-labeled"><b><i class="icon-reading"></i></b> 
-													AGREGAR INVOLUCRADO
-												</button>
-											</div>
-											<div class="mt-20" >
-												<ul class="media-list " id="listInv">
-													<h5 class="text-center text-muted">No hay involucrados registrados</h5>
-												</ul>
-											</div>											
 										</div>
 									</fieldset>
 									<h6>Estado del vehiculo</h6>
@@ -104,7 +71,7 @@
 									<h6>Soporte Multimedia</h6>
 									<fieldset>
 										<div class="fileupload">
-											<div class="dropzone cursor-pointer" id="dropzone_multiple1"></div>
+											<div class="dropzone cursor-pointer" id="dropzone_multiple2"></div>
 										</div>
 									</fieldset>
 								</form>
@@ -126,8 +93,7 @@
 	<?php include 'views/include/scripts.php'; ?>
 	<script src="Public/assets/js/plugins/steps.min.js"></script>
 	<script src="Public/assets/js/plugins/dropzone.min.js"></script>
-	<script src="Public/assets/js/plugins/bootstrap_select.min.js"></script>
-	<script type="text/javascript">
+	<script>
 		$(".steps-basic").steps({
 		    headerTag: "h6",
 		    bodyTag: "fieldset",
@@ -148,10 +114,10 @@
 		
 		$("#placa").on("blur", function(){
 			
-			var placa = document.getElementById('placa').value;
+			var placa = $(this).val();
 			console.log("placa "+placa);			
-			$("#dropzone_multiple1").dropzone({
-				url: 'index.php?url=upload/fileUpload/'+placa+"/siniestro",
+			$("#dropzone_multiple2").dropzone({
+				url: 'index.php?url=upload/fileUpload/'+placa+"/arreglo",
 			    paramName: "file", 
 			    uploadMultiple: true,
 			    //forceFallback: true,
@@ -164,7 +130,7 @@
 			    	var imgName = file.name;
 			    	$.ajax({
 			    		type: "POST",
-			    		url: "index.php?url=upload/delete/"+placa+"/siniestro",
+			    		url: "index.php?url=upload/delete/"+placa+"/arreglo",
 			    		data: "filename="+imgName,
 			    		dataType : 'json',
 			    		success: function(data) {		
@@ -180,46 +146,6 @@
 			    } 
 			});
 		});	 
-	</script>
-	<script>$('.bootstrap-select').selectpicker();</script>
-	<script>
-		$(function(){
-			var listInv = $("#listInv");
-			var text = $("#listInv h5");
-			$(".addInvCont").on("click", "#addInv", function(){
-
-				var id = $("#idInv");
-				var nom = $("#nomInv");					
-				if(id.val() != "" && nom.val() != "") {
-					text.css("display", "none");
-					var html = '<li class="table-caract display-inline-block">';
-						html +=	'<div class="media-left">';
-						html +=		'<img src="Public/assets/img/placeholder.jpg" class="img-circle img-xs" alt="">';				
-						html +=	'</div>';
-						html +=	'<div class="media-body">';
-						html +=		'<div>'+ nom.val() +'</div>';
-						html +=		'<span class="display-block text-muted">'+ id.val() +'</span>';
-						html +=	'</div>';
-						html +=	'<div class="media-right">';
-						html +=		'<a class="media-annotation pull-right close"><i class="icon-cancel-circle2"></i></a>';
-						html +=	'</div>';
-						html +='</li>';
-
-					listInv.append(html);
-					nom.val("");
-					id.val("");
-					id.focus();
-				}				
-			});
-
-			listInv.on("click", ".close", function(){
-				if(listInv.children("li").size() <= 1){
-					text.css("display", "block");
-				}				
-				$(this).parent().parent().remove();
-				
-			});
-		});
 	</script>
 	<!-- /scripts -->
 </body>

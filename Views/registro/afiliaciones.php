@@ -152,7 +152,7 @@
 			var placa = document.getElementById('placa').value;
 			console.log("placa "+placa);			
 			$("#dropzone_multiple").dropzone({
-				url: 'index.php?url=upload/fileUpload/'+placa,
+				url: 'index.php?url=upload/fileUpload/'+placa+"/afiliacion",
 			    paramName: "file", 
 			    uploadMultiple: true,
 			    //forceFallback: true,
@@ -165,11 +165,10 @@
 			    	var imgName = file.name;
 			    	$.ajax({
 			    		type: "POST",
-			    		url: "?url=upload/delete",
+			    		url: "index.php?url=upload/delete/"+placa+"/afiliacion",
 			    		data: "filename="+imgName,
 			    		success: function(data) {
-			    			var remove = JSON.parse(data);
-			    			if (remove.exito) {
+			    			if (data.response) {
 			    				var img;
 			    				(img = file.previewElement) != null ? img.parentNode.removeChild(file.previewElement) : false;
 			    				console.log("Archivo eliminado");

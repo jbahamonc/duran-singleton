@@ -2,35 +2,24 @@
 
 	namespace Core\Controller;
 
-	use \Core\View;
-
 	/**
 	*  Controlador que gestiona la subida de las imagenes al servidor
 	*/
 	class Upload{
 
 		/**
-		 * @var folder indica la raiz donde se alojan los archivos de las afiliaciones
+		 * @var folder indica la raiz donde se alojan los archivos
 		 */
 		private $folder = "archivo";
 
-		/**
-		 * @var placa indica el nombre de carpeta correspondiente a cada placa
-		 */
-		private $placa;
-		
-		function __construct() {}
+		function fileUpload($placa, $folder) {
 
-		function fileUpload($placa) {
+			if (!empty($_FILES) and !empty($placa) and !empty($folder)) {
 
-			if (!empty($_FILES)) {
+				$path = $this->folder . DS . $placa . DS . $folder . DS;
 
-				$this->placa = $placa;
-
-				$this->folder .= DS . $this->placa . DS	. "afiliacion" . DS;
-
-				if (!file_exists($this->folder)) { 
-				    mkdir($this->folder, 0777, true);	
+				if (!file_exists($path)) { 
+				    mkdir($path, 0777, true);	
 				}
 
 				for ($i = 0; $i < count($_FILES['file']['name']); $i++) {
@@ -38,7 +27,7 @@
 					$tempFile = $_FILES['file']['tmp_name'][$i];    
 				    $targetFile =  $_FILES['file']['name'][$i]; 				      
 				 
-				    if(move_uploaded_file($tempFile, $this->folder . $targetFile)) {
+				    if(move_uploaded_file($tempFile, $path . $targetFile)) {
 				    	echo "archivo subido";
 				    	// Agregar a la DB
 				    } else {
@@ -49,25 +38,24 @@
 			}
 		}
 
-		function delete() {
+		function delete($placa, $folder) {
 
-			if (!empty($this->placa)) {			
+			if (!empty($placa) and !empty($folder)) {
 					
 				$file = $_POST['filename'];
+				$path = $this->folder . DS . $placa . DS . $folder . DS;			
 
-				if (file_exists($this->folder . $file)) {
-					unlink($this->folder . $file);
-					echo json_encode(array('exito' => true));
+				if (file_exists($path . $file)) {
+					unlink($path . $file);
+					echo json_encode(array('response' => true));
 				} 
 				else {
-					//echo json_encode(array('exito' => false));
-					throw new \Exception("Error Processing Request", 1);
+					echo json_encode(array('response' => false));
 					
 				}
 				
 			} else {
-				//echo json_encode(array('exito' => false));
-				throw new \Exception("Error Processing Request", 1);
+				echo json_encode(array('response' => false));
 				
 			}
 		}
