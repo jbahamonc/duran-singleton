@@ -116,4 +116,12 @@
 	            return explode("/", filter_var(rtrim($_GET["url"], "/"), FILTER_SANITIZE_URL));
 	        }
 	    }
+
+	    /**
+	     * [getConfig Obtenemos la configuración de la app]
+	     * @return [Array] [Array con la Config]
+	     */
+	    public static function getConfig() {
+	        return parse_ini_file(PROJECTPATH . DS . 'App/config/config.ini');
+	    }
 	}

@@ -16,4 +16,10 @@
 			View::set("descPanel", "A continuacion encontrara el formulario para el registro de afiliaciones");
 			View::render("registro" . DS . "afiliaciones");
 		}
+
+		function save() {
+			if (isset($_POST[''])) {
+				# code...
+			}
+		}
 	}

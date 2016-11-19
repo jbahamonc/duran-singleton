@@ -19,32 +19,32 @@
 					<div class="panel">
 						<div class="panel-body">
 							<div class="row">
-								<form class="steps-basic overflow-visible">
+								<form class="steps-basic overflow-visible" id="form-afiliacion">
 									<h6>Datos del Cliente</h6>
-									<fieldset>
+									<fieldset id="cliente">
 										<div class="col-md-10 col-md-offset-1">
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-profile"></i></span>
-													<input type="text" class="form-control" placeholder="Identificacion *">
+													<input type="text" name="id" class="form-control" placeholder="Identificacion *">
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-user-tie"></i></span>
-													<input type="text" class="form-control" placeholder="Nombre del afiliado *">
+													<input type="text" name="nombre" class="form-control" placeholder="Nombre del afiliado *">
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-phone"></i></span>
-													<input type="text" class="form-control" placeholder="Telefono *">
+													<input type="text" name="tel" class="form-control" placeholder="Telefono *">
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-map"></i></span>
-													<input type="text" class="form-control" placeholder="Direccion de Residencia *">
+													<input type="text" name="dir" class="form-control" placeholder="Direccion de Residencia *">
 												</div>
 											</div>
 										</div>
@@ -61,13 +61,13 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-calendar"></i></span>
-													<input type="text" class="form-control" placeholder="Modelo del vehiculo *">
+													<input type="text" name="modelo" class="form-control" placeholder="Modelo del vehiculo *">
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-car"></i></span>
-													<input type="text" class="form-control" placeholder="Marca del vehiculo *">
+													<input type="text" name="marca" class="form-control" placeholder="Marca del vehiculo *">
 												</div>
 											</div>
 										</div>
@@ -88,7 +88,33 @@
 															<div class="editableform">
 																<div class="control-group form-group no-margin">
 																	<div class="editable-input">
-																		<textarea class="form-control" rows="2"></textarea>
+																		<textarea data-id="1" name="desc" class="form-control" rows="2"></textarea>
+																	</div>
+																	<div class="editable-buttons editable-buttons-bottom">
+																		<button type="button" class="btn btn-default btn-icon editable-cancel">
+																			<i class="icon-x"></i>
+																		</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</ul>
+												</div>												
+											</li>
+											<li class="table-caract display-inline-block" >
+												<span class="media-left media-middle">#2</span>
+												<div class="media-body media-middle">Luces frontales</div>
+												<div class="media-right media-middle">
+													<button type="button" class="btn btn-rounded dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+														<i class="icon-pen6"></i>
+													</button>
+													<ul class="dropdown-menu no-padding dropdown-menu-right" style="min-width: 200px;">
+														<h3 class="popover-title">Agregar observación</h3>
+														<div class="popover-content">
+															<div class="editableform">
+																<div class="control-group form-group no-margin">
+																	<div class="editable-input">
+																		<textarea data-id="2" name="desc" class="form-control" rows="2"></textarea>
 																	</div>
 																	<div class="editable-buttons editable-buttons-bottom">
 																		<button type="button" class="btn btn-default btn-icon editable-cancel">
@@ -140,9 +166,35 @@
 		    	next : 'Siguiente'
 		    },
 		    onFinished: function (event, currentIndex) {
-		        alert("Formulario enviado.");
+		        enviarFormulario();
 		    }
 		});
+
+		function enviarFormulario() {
+			var json = new Object();
+			$("#form-afiliacion").find('input').each(function() {
+				var prop = this.name;
+         		json[prop] = this.value;
+			});
+			var partes = new Object();
+			var arrayPartes = new Array();
+			$("#form-afiliacion").find('textarea').each(function() {
+				var prop = $(this).data("id");
+         		partes[prop] = $(this).val();
+			});
+			arrayPartes.push(partes);
+			json.partes = arrayPartes;
+			var datos = JSON.stringify(json);
+			$.ajax({
+				url: "?url=afiliaciones/save",
+				data: datos,
+				type: "POST",
+				success: function(res) {
+
+				}
+			});
+		}
+
 	</script>
 	<script>
 		Dropzone.autoDiscover = false;
