@@ -66,8 +66,14 @@
 											</div>
 											<div class="form-group">
 												<div class="input-group">
-													<span class="input-group-addon"><i class="icon-car"></i></span>
-													<input type="text" name="marca" class="form-control" placeholder="Marca del vehiculo *">
+													<span class="input-group-addon"><i class="icon-profile"></i></span>
+													<select class="bootstrap-select bs-select-hidden" name="marca" title="Seleccione una marca" data-width="100%">
+														<option value="1">Select Hawaii, California and Nevada</option>
+														<option value="2">Hawaii</option>
+														<option value="3">California</option>
+														<option value="4">Nevada</option>
+														<option value="5">Oregon</option>
+													</select>
 												</div>
 											</div>
 										</div>
@@ -154,6 +160,7 @@
 	<?php include 'views/include/scripts.php'; ?>
 	<script src="Public/assets/js/plugins/steps.min.js"></script>
 	<script src="Public/assets/js/plugins/dropzone.min.js"></script>
+	<script src="Public/assets/js/plugins/bootstrap_select.min.js"></script>
 	<script type="text/javascript">
 		$(".steps-basic").steps({
 		    headerTag: "h6",
@@ -173,8 +180,7 @@
 		function enviarFormulario() {
 			var json = new Object();
 			$("#form-afiliacion").find('input').each(function() {
-				var prop = this.name;
-         		json[prop] = this.value;
+			$("#form-afiliacion").find('input,select').each(function() {
 			});
 			var partes = new Object();
 			var arrayPartes = new Array();
@@ -185,6 +191,7 @@
 			arrayPartes.push(partes);
 			json.partes = arrayPartes;
 			var datos = JSON.stringify(json);
+			//console.log(datos);
 			$.ajax({
 				url: "?url=afiliaciones/save",
 				data: "json="+datos,
@@ -235,6 +242,7 @@
 			});
 		});	 
 	</script>
+	<script>$('.bootstrap-select').selectpicker();</script>
 	<!-- /scripts -->
 </body>
 </html>
