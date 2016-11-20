@@ -47,15 +47,15 @@
 
 				if (file_exists($path . $file)) {
 					unlink($path . $file);
-					echo json_encode(array('response' => true));
+					echo json_encode(array('response' => true, "text" => "se ha eliminado"));
 				} 
 				else {
-					echo json_encode(array('response' => false));
+					echo json_encode(array('response' => false, "text" => "No existe el archivo"));
 					
 				}
 				
 			} else {
-				echo json_encode(array('response' => false));
+				echo json_encode(array('response' => false, "text" => "No existe la placa o el folder esta vacio"));
 				
 			}
 		}

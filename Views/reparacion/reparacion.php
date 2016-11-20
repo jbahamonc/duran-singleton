@@ -93,10 +93,6 @@
 	<?php include 'views/include/scripts.php'; ?>
 	<script src="Public/assets/js/plugins/steps.min.js"></script>
 	<script src="Public/assets/js/plugins/dropzone.min.js"></script>
-	<script src="Public/assets/js/plugins/validate.min.js"></script>
-	<script>
-		
-	</script>
 	<script>
 		$(".steps-basic").steps({
 		    headerTag: "h6",
@@ -108,32 +104,14 @@
 		        previous : 'Anterior',
 		    	next : 'Siguiente'
 		    },
-		    onStepChanging: function(event, currentIndex, newIndex){
-
-		    	$(".steps-validation").validate({
-		    		submitHandler: function(form) {
-					    // do other things for a valid form
-					    form.submit();
-					},
-					rules: {
-						placa: "required"
-					},
-					messages: {
-						placa: "Por favor ingrese la placa del vehiculo"
-					}
-				});
-				//return true;
-		    },
 		    onFinished: function (event, currentIndex) {
 		        alert("Formulario enviado.");
 		    }
 		});
 	</script>
 	<script>
-		Dropzone.autoDiscover = false;
-		
-		$("#placa").on("blur", function(){
-			
+		Dropzone.autoDiscover = false;		
+		$("#placa").on("blur", function(){			
 			var placa = $(this).val();
 			console.log("placa "+placa);			
 			$("#dropzone_multiple2").dropzone({
@@ -152,12 +130,12 @@
 			    		type: "POST",
 			    		url: "index.php?url=upload/delete/"+placa+"/arreglo",
 			    		data: "filename="+imgName,
-			    		dataType : 'json',
 			    		success: function(data) {		
-			    			if (data.response) {
+			    			var res = JSON.parse(data);
+			    			if (res.response) {
 			    				var img;
 			    				(img = file.previewElement) != null ? img.parentNode.removeChild(file.previewElement) : false;
-			    				console.log("Archivo eliminado");
+			    				//console.log("Archivo eliminado");
 			    			} else {
 			    				console.log("no se pudo");
 			    			}

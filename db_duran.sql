@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-11-2016 a las 23:59:30
+-- Tiempo de generación: 20-11-2016 a las 18:32:16
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -17,20 +17,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `aseguradora`
+-- Base de datos: `db_duran`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `afiliciacion`
+-- Estructura de tabla para la tabla `afiliacion`
 --
 
-CREATE TABLE `afiliciacion` (
+CREATE TABLE `afiliacion` (
   `id` int(11) NOT NULL,
   `placa` varchar(6) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha` varchar(8) COLLATE utf8_spanish_ci NOT NULL
+  `fecha` varchar(10) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `afiliacion`
+--
+
+INSERT INTO `afiliacion` (`id`, `placa`, `fecha`) VALUES
+(13, 'MLU144', '20/11/2016');
 
 -- --------------------------------------------------------
 
@@ -44,6 +51,26 @@ CREATE TABLE `arreglo` (
   `valor` bigint(20) NOT NULL,
   `fo` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_partes_afiliacion`
+--
+
+CREATE TABLE `detalle_partes_afiliacion` (
+  `id_afiliacion` int(11) NOT NULL,
+  `id_partes` int(11) NOT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_partes_afiliacion`
+--
+
+INSERT INTO `detalle_partes_afiliacion` (`id_afiliacion`, `id_partes`, `descripcion`) VALUES
+(13, 1, 'presenta rayones en la parte de abajo'),
+(13, 2, 'se encuetran quebradas');
 
 -- --------------------------------------------------------
 
@@ -80,6 +107,22 @@ CREATE TABLE `marcas` (
   `descripcion` varchar(30) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `marcas`
+--
+
+INSERT INTO `marcas` (`id`, `descripcion`) VALUES
+(1, 'Chevrolet'),
+(2, 'Renault'),
+(3, 'Suzuki'),
+(4, 'Kia'),
+(5, 'Nissan'),
+(6, 'Mazda'),
+(7, 'Hyundai'),
+(8, 'Ford'),
+(9, 'Toyota'),
+(10, 'Volkswagen');
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +146,14 @@ CREATE TABLE `partes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `partes`
+--
+
+INSERT INTO `partes` (`id`, `nombre`) VALUES
+(1, 'Puerta trasera izquierda'),
+(2, 'Luces frontales');
 
 -- --------------------------------------------------------
 
@@ -142,11 +193,18 @@ CREATE TABLE `siniestro` (
 --
 
 CREATE TABLE `usuario` (
-  `identificacion` int(11) NOT NULL,
+  `identificacion` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `nombre_completo` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `telefono` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`identificacion`, `nombre_completo`, `telefono`, `direccion`) VALUES
+('1116789304', 'Jefferson Bahamon Cuevas', '3125271579', 'calle 13 # 0 -31 motilones');
 
 -- --------------------------------------------------------
 
@@ -161,13 +219,20 @@ CREATE TABLE `vehiculo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
+-- Volcado de datos para la tabla `vehiculo`
+--
+
+INSERT INTO `vehiculo` (`placa`, `modelo`, `marca`) VALUES
+('MLU144', '2013', 2);
+
+--
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `afiliciacion`
+-- Indices de la tabla `afiliacion`
 --
-ALTER TABLE `afiliciacion`
+ALTER TABLE `afiliacion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `placa` (`placa`);
 
@@ -176,6 +241,12 @@ ALTER TABLE `afiliciacion`
 --
 ALTER TABLE `arreglo`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `detalle_partes_afiliacion`
+--
+ALTER TABLE `detalle_partes_afiliacion`
+  ADD PRIMARY KEY (`id_afiliacion`,`id_partes`);
 
 --
 -- Indices de la tabla `imagenes`
@@ -241,10 +312,10 @@ ALTER TABLE `vehiculo`
 --
 
 --
--- AUTO_INCREMENT de la tabla `afiliciacion`
+-- AUTO_INCREMENT de la tabla `afiliacion`
 --
-ALTER TABLE `afiliciacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `afiliacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `arreglo`
 --
@@ -259,7 +330,7 @@ ALTER TABLE `imagenes`
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
@@ -269,7 +340,7 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `partes`
 --
 ALTER TABLE `partes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `siniestro`
 --

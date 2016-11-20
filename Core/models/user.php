@@ -17,8 +17,7 @@
 	            $query->bindParam(2, $name, \PDO::PARAM_STR);
 	            $query->bindParam(3, $phone, \PDO::PARAM_STR);
 	            $query->bindParam(4, $dir, \PDO::PARAM_STR);
-	            $query->execute();
-	            return $query->fetch();
+	            return $query->execute();
 	        }
 	        catch(\PDOException $e)
 	        {

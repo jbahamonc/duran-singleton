@@ -187,20 +187,21 @@
 			var datos = JSON.stringify(json);
 			$.ajax({
 				url: "?url=afiliaciones/save",
-				data: datos,
+				data: "json="+datos,
 				type: "POST",
 				success: function(res) {
-
+					//if (res) {
+						//console.log("exito");
+					//} else {
+						console.log(res);
+					//}
 				}
 			});
 		}
-
 	</script>
 	<script>
-		Dropzone.autoDiscover = false;
-		
-		$("#placa").on("blur", function(){
-			
+		Dropzone.autoDiscover = false;		
+		$("#placa").on("blur", function(){			
 			var placa = document.getElementById('placa').value;
 			console.log("placa "+placa);			
 			$("#dropzone_multiple").dropzone({
@@ -220,10 +221,11 @@
 			    		url: "index.php?url=upload/delete/"+placa+"/afiliacion",
 			    		data: "filename="+imgName,
 			    		success: function(data) {
-			    			if (data.response) {
+			    			var res = JSON.parse(data);
+			    			if (res.response) {
 			    				var img;
 			    				(img = file.previewElement) != null ? img.parentNode.removeChild(file.previewElement) : false;
-			    				console.log("Archivo eliminado");
+			    				//console.log("Archivo eliminado");
 			    			} else {
 			    				console.log("no se pudo");
 			    			}

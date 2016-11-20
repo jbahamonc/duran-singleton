@@ -144,10 +144,8 @@
 		});
 	</script>
 	<script>
-		Dropzone.autoDiscover = false;
-		
-		$("#placa").on("blur", function(){
-			
+		Dropzone.autoDiscover = false;		
+		$("#placa").on("blur", function(){			
 			var placa = document.getElementById('placa').value;
 			console.log("placa "+placa);			
 			$("#dropzone_multiple1").dropzone({
@@ -166,12 +164,12 @@
 			    		type: "POST",
 			    		url: "index.php?url=upload/delete/"+placa+"/siniestro",
 			    		data: "filename="+imgName,
-			    		dataType : 'json',
 			    		success: function(data) {		
-			    			if (data.response) {
+			    			var res = JSON.parse(data);
+			    			if (res.response) {
 			    				var img;
 			    				(img = file.previewElement) != null ? img.parentNode.removeChild(file.previewElement) : false;
-			    				console.log("Archivo eliminado");
+			    				//console.log("Archivo eliminado");
 			    			} else {
 			    				console.log("no se pudo");
 			    			}
