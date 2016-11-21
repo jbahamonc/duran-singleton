@@ -16,7 +16,11 @@
 				<!-- /page header -->
 				<!-- Content area -->
 				<div class="content">
-					
+					<?php 
+						if ($listPagos == "") {
+							print("no hay pagos");
+						}
+					?>
 					<!-- Footer -->
 					<?php include 'views/include/footer.php'; ?>
 					<!-- /footer -->

@@ -13,6 +13,7 @@
 	include 'models/vehiculo.php';
 	include 'models/afiliacion.php';
 	include 'models/deta_partes_afiliacion.php';
+	include 'models/pago.php';
 	
 	include 'Core/views.php';
 	include 'Database.php';
