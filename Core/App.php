@@ -7,6 +7,7 @@
 	include 'controller/upload.php';
 	include 'controller/siniestro.php';
 	include 'controller/reparaciones.php';
+	include 'controller/pagos.php';
 
 	include 'models/user.php';
 	include 'models/vehiculo.php';

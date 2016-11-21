@@ -67,7 +67,7 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"><i class="icon-profile"></i></span>
-													<select class="bootstrap-select bs-select-hidden" name="marca" title="Seleccione una marca" data-width="100%">
+													<select class="bootstrap-select bs-select-hidden" name="marca" title="Seleccione una marca *" data-width="100%">
 														<option value="1">Select Hawaii, California and Nevada</option>
 														<option value="2">Hawaii</option>
 														<option value="3">California</option>
@@ -174,13 +174,15 @@
 		    },
 		    onFinished: function (event, currentIndex) {
 		        enviarFormulario();
+		        location.href="./";
 		    }
 		});
 
 		function enviarFormulario() {
 			var json = new Object();
-			$("#form-afiliacion").find('input').each(function() {
 			$("#form-afiliacion").find('input,select').each(function() {
+				var prop = $(this).attr("name");
+         		json[prop] = $(this).val();
 			});
 			var partes = new Object();
 			var arrayPartes = new Array();

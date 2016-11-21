@@ -26,7 +26,7 @@
 							<li><a href="#">Perito</a></li>
 						</ul>
 					</li>
-					<li><a href="#"><i class="icon-cash3"></i> <span>Consultar pagos</span></a></li>
+					<li><a href="?url=pagos"><i class="icon-cash3"></i> <span>Consultar pagos</span></a></li>
 					<li>
 						<a href="#"><i class="icon-car2"></i> <span>Consultas</span></a>
 						<ul>
